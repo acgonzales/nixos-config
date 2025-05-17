@@ -18,6 +18,7 @@
   home.packages = with pkgs; [
     php83
     php83Packages.composer
+    nodejs_24
   ];
 
   home.stateVersion = "25.05";
