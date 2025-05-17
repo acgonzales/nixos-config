@@ -21,9 +21,9 @@
       };
     in {
       nixosConfigurations = {
-        default = nixpkgs.lib.nixosSystem {
+        odev = nixpkgs.lib.nixosSystem {
           modules = [
-            ./hosts/default.nix
+            ./hosts/odev/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -41,7 +41,7 @@
       };
       
       homeManagerConfigurations = {
-        default = home-manager.lib.homeManagerConfiguration {
+        naix = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;          
 
           modules = [

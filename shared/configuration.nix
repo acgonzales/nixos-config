@@ -1,22 +1,16 @@
 { inputs, config, pkgs, ... }:
 
 {
-  imports = [
-    ../hardwares/default.nix
-  ];
-  
-  # Bootloader.
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
-  # Set your time zone.
+  # Set your time zone and i18n
   time.timeZone = "Asia/Manila";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_PH.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "fil_PH";
     LC_IDENTIFICATION = "fil_PH";
@@ -29,7 +23,8 @@
     LC_TIME = "fil_PH";
   };
   
-  networking.hostName = "naix";
+  # Enable networking
+  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
   
   # X11 and GNOME
@@ -56,11 +51,13 @@
 	  enableOnBoot = true;
 	};
 
+  # System packages and default programs
   environment.systemPackages = with pkgs; [
     curl wget unzip
     docker-compose
     inputs.zen-browser.packages.${system}.default
     ghostty
+    tldr eza
     vscode
     code-cursor
     nerd-fonts.jetbrains-mono
@@ -73,9 +70,48 @@
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
   };
+  programs.starship = {
+    enable = true;
+    settings = {
+      format = "$directory$git_branch$status$character";
+      follow_symlinks = true;
+
+      character = {
+        success_symbol = "[>](bold green) ";
+        error_symbol = "[>](bold red) ";
+      };
+
+      directory = {
+        format = "[\\($path\\)](fg:#555555) ";
+      };
+
+      git_branch = {
+        format = "[$symbol$branch]($style) ";
+        style = "bold blue";
+      };
+
+      status = {
+        format = "[$symbol]($style) ";
+        symbol = "[✖](bold red) ";
+        success_symbol = "[✔](bold green) ";
+        style = "bold red";
+      };
+    };
+  };
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  programs.bat = {
+    enable = true;
+    settings = {
+      italic-text = "always";
+    };
+  };
+  programs.fzf.fuzzyCompletion = true;
+  programs.thefuck.enable = true;
   programs.git = {
     enable = true;
-    package = pkgs.git;
     config = {
       init = {
         defaultBranch = "main";
@@ -87,8 +123,10 @@
     };
   };
   
+  # Users
   users.defaultUserShell = pkgs.zsh;
   
+  # maybe should not belong here, idk
   users.users.naix = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker" ];
@@ -100,6 +138,4 @@
     extraGroups = [ "wheel" "networkmanager" "docker" ];
     initialHashedPassword = "$6$JToht1TyOsbiBZKx$W5YxJ18w33zqzRVjH0Eqh0FW/rsO7PVulBeQRDqusRucMS2R8FHX6W2UauJ3i4y8via7tRP1BrVcGV1QpJ3mC0";
   };
-  
-  system.stateVersion = "25.05";
 }
