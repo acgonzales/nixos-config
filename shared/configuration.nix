@@ -44,6 +44,13 @@
   
   # Flake support
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Time
+  networking.timeServers = [
+    "time.cloudflare.com"
+    "time.google.com"
+  ];
+  services.chrony.enable = true;
 	
 	# Docker
 	virtualisation.docker = {
