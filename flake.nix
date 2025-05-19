@@ -31,6 +31,7 @@
               home-manager.users = {
                 naix = import ./users/naix.nix;
                 larry = import ./users/larry.nix;
+                odev = import ./users/odev.nix;
               };
             }
           ];
@@ -58,6 +59,18 @@
 
           modules = [
             ./users/larry.nix
+          ];
+
+          extraSpecialArgs = {
+            inherit system;
+          };
+        };
+
+        odev = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;          
+
+          modules = [
+            ./users/odev.nix
           ];
 
           extraSpecialArgs = {
