@@ -129,6 +129,16 @@
       };
     };
   };
+
+  environment.shellAliases = {
+    cd = "z";
+    zz = "z -d";
+    ls = "eza --icons --git --group-directories-first --color=auto";
+    l = "eza -l --icons --git --group-directories-first --color=auto";
+    ll = "eza -lah --icons --git --group-directories-first --color=auto";
+    lt = "eza -T --icons --git --level=2 --color=auto";
+    lg = "eza --git-ignore --icons --git --group-directories-first --color=auto";
+  };
   
   # Users
   users.defaultUserShell = pkgs.zsh;
