@@ -15,6 +15,10 @@
     };
   };
 
+  home.sessionPath = [
+    "$HOME/.config/composer/vendor/bin"
+  ];
+
   home.packages = with pkgs; [
     php83
     php83Packages.composer
