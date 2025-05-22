@@ -12,6 +12,7 @@
     python313
     python313Packages.pipx
     python313Packages.uv
+    viber
   ];
 
   home.stateVersion = "25.05";
