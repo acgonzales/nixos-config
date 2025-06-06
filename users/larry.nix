@@ -23,6 +23,7 @@
     php83
     php83Packages.composer
     nodejs_24
+    bruno
   ];
 
   home.stateVersion = "25.05";

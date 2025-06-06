@@ -61,12 +61,15 @@
   # System packages and default programs
   environment.systemPackages = with pkgs; [
     curl wget unzip
-    docker-compose
+    docker-compose lazydocker
     inputs.zen-browser.packages.${system}.default
+    delta
     ghostty
     tldr eza
     vscode
     code-cursor
+    discord-ptb
+    yt-dlp
     nerd-fonts.jetbrains-mono
   ];
   
@@ -116,7 +119,7 @@
     };
   };
   programs.fzf.fuzzyCompletion = true;
-  programs.thefuck.enable = true;
+  programs.pay-respects.enable = true;
   programs.git = {
     enable = true;
     config = {
@@ -126,6 +129,19 @@
       user = {
         name = "Aaron Gonzales";
         email = "aaroncgonzales.dev@gmail.com";
+      };
+      core = {
+        pager = "delta";
+      };
+      interactive = {
+        diffFilter = "delta --color-only";
+      };
+      delta = {
+        navigate = true;
+        line-numbers = true;
+      };
+      merge = {
+        conflictStyle = "zdiff3";
       };
     };
   };
@@ -138,6 +154,10 @@
     ll = "eza -lah --icons --git --group-directories-first --color=auto";
     lt = "eza -T --icons --git --level=2 --color=auto";
     lg = "eza --git-ignore --icons --git --group-directories-first --color=auto";
+    cat = "bat --paging=never";
+    less = "bat";
+    zf = "fzf"; 
+    pf = "fzf --preview 'bat --color=always --line-range=:500' {}";
   };
   
   # Users
