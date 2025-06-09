@@ -24,8 +24,16 @@
   };
   
   # Enable networking
-  networking.hostName = lib.mkDefault "nixos";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = lib.mkDefault "nixos";
+    networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        9003 # xdebug
+      ];
+    };
+  };
   
   # X11 and GNOME
   services.xserver.enable = true;
@@ -71,6 +79,7 @@
     discord-ptb
     yt-dlp
     nerd-fonts.jetbrains-mono
+    appimage-run
   ];
   
   programs.firefox.enable = true;
