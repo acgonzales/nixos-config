@@ -191,6 +191,13 @@
     initialHashedPassword = "$6$JToht1TyOsbiBZKx$W5YxJ18w33zqzRVjH0Eqh0FW/rsO7PVulBeQRDqusRucMS2R8FHX6W2UauJ3i4y8via7tRP1BrVcGV1QpJ3mC0";
   };
 
+  programs.adb.enable = true;
+  users.users.dash = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "adbusers" ];
+    initialHashedPassword = "$6$JToht1TyOsbiBZKx$W5YxJ18w33zqzRVjH0Eqh0FW/rsO7PVulBeQRDqusRucMS2R8FHX6W2UauJ3i4y8via7tRP1BrVcGV1QpJ3mC0";
+  };
+
   # Backup existing files
   home-manager.backupFileExtension = "backup";
 }

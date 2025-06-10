@@ -32,6 +32,7 @@
                 naix = import ./users/naix.nix;
                 larry = import ./users/larry.nix;
                 odev = import ./users/odev.nix;
+                dash = import ./users/dash.nix;
               };
             }
           ];
@@ -71,6 +72,18 @@
 
           modules = [
             ./users/odev.nix
+          ];
+
+          extraSpecialArgs = {
+            inherit system;
+          };
+        };
+
+        dash = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;          
+
+          modules = [
+            ./users/dash.nix
           ];
 
           extraSpecialArgs = {
